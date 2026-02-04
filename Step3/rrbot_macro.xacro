@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="rrbot" params="prefix parent *origin">
+
+    <!-- Constants for robot dimensions -->
+    <xacro:property name="yaml_file" value="$(find rrbot_description)/config/rrbot_dimensions.yaml" />
+    <xacro:property name="props" value="${xacro.load_yaml(yaml_file)}"/>
+
+    <!-- we technically don't need to define new properties (just use props.width, etc.) but I like the short names -->
+    <xacro:property name="width" value="${props.width}" />
+    <xacro:property name="height0" value="${props.height0}" />
+    <xacro:property name="height1" value="${props.height1}" />
+    <xacro:property name="height2" value="${props.height2}" />
+    <xacro:property name="axel_offset" value="${props.axel_offset}" />
+
+    <joint name="${prefix}base_joint" type="fixed">
+      <xacro:insert_block name="origin" />
+      <parent link="${parent}" />
+      <child link="${prefix}base_link" />
+    </joint>
+
+    <!-- Base Link -->
+    <link name="${prefix}base_link">
+      <visual>
+        <origin xyz="0 0 ${height0/2}" rpy="0 0 0" />
+        <geometry>
+          <box size="${width} ${width} ${height0}" />
+        </geometry>
+        <material name="blue" />
+      </visual>
+    </link>
+
+    <joint name="${prefix}joint1" type="continuous">
+      <parent link="${prefix}base_link" />
+      <child link="${prefix}link1" />
+      <origin xyz="0 ${width} ${height0 - axel_offset}" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+    </joint>
+
+    <!-- Middle Link -->
+    <link name="${prefix}link1">
+      <visual>
+        <origin xyz="0 0 ${height1/2 - axel_offset}" rpy="0 0 0" />
+        <geometry>
+          <box size="${width} ${width} ${height1}" />
+        </geometry>
+        <material name="red" />
+      </visual>
+    </link>
+
+    <joint name="${prefix}joint2" type="continuous">
+      <parent link="${prefix}link1" />
+      <child link="${prefix}link2" />
+      <origin xyz="0 ${width} ${height1 - axel_offset*2}" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+    </joint>
+
+    <!-- Top Link -->
+    <link name="${prefix}link2">
+      <visual>
+        <origin xyz="0 0 ${height2/2 - axel_offset}" rpy="0 0 0" />
+        <geometry>
+          <box size="${width} ${width} ${height2}" />
+        </geometry>
+        <material name="black" />
+      </visual>
+    </link>
+
+    <joint name="${prefix}tool_joint" type="fixed">
+      <origin xyz="0 0 ${height2-axel_offset}" rpy="0 0 0" />
+      <parent link="${prefix}link2" />
+      <child link="${prefix}tool0" />
+    </joint>
+
+    <!-- Tool Link -->
+    <link name="${prefix}tool0"/>
+
+  </xacro:macro>
+
+</robot>

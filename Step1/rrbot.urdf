@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<robot name="rrbot">
+
+  <!-- define the colors -->
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0" />
+  </material>
+  <material name="red">
+    <color rgba="0.8 0.0 0.0 1.0" />
+  </material>
+  <material name="green">
+    <color rgba="0.0 0.8 0.0 1.0" />
+  </material>
+  <material name="blue">
+    <color rgba="0.0 0.0 0.8 1.0" />
+  </material>
+  
+  <!-- create link fixed to the "world" -->
+  <link name="world" />
+
+  <!-- joint from "world" to "base_link"-->
+  <joint name="base_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0" />
+    <parent link="world" />
+    <child link="base_link" />
+  </joint>
+
+  <!-- Base Link -->
+  <link name="base_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 1.0" />
+      <geometry>
+        <box size="0.05 0.05 2" />
+      </geometry>
+      <material name="black" />
+    </visual>
+  </link>
+
+  <!-- Joint 1 -->
+  <joint name="joint1" type="continuous">
+    <parent link="base_link" />
+    <child link="link1" />
+    <!-- offset by 5cm in y axis -->
+    <origin rpy="0 0 0" xyz="0 0.05 1.95" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+  <!-- Link 1 -->
+  <link name="link1">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.45" />
+      <geometry>
+        <box size="0.05 0.05 1" />
+      </geometry>
+      <material name="red" />
+    </visual>
+  </link>
+
+  <!-- Joint 2 -->
+  <joint name="joint2" type="continuous">
+    <parent link="link1" />
+    <child link="link2" />
+    <!-- offset by 5cm in y axis -->
+    <origin rpy="0 0 0" xyz="0 0.05 0.9" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+  <!-- Link 2 -->
+  <link name="link2">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.45" />
+      <geometry>
+        <box size="0.05 0.05 1" />
+      </geometry>
+      <material name="green" />
+    </visual>
+  </link>
+
+  <!-- joint from link2 to tool0 -->
+  <joint name="tool_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.95" />
+    <parent link="link2" />
+    <child link="tool0" />
+  </joint>
+
+  <!-- Tool Link -->
+  <link name="tool0" />
+  
+</robot>

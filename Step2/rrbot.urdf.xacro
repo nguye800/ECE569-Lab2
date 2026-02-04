@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="rrbot">
+
+  <!-- copy and paste the contents of "rrbot_macro.xacro" here -->
+  <xacro:include filename="materials.xacro" />
+  <xacro:include filename="rrbot_macro.xacro"/>
+
+  <!-- create link fixed to the "world" -->
+  <link name="world" />
+
+  <!-- create the first robot -->
+  <xacro:rrbot prefix="rrbot1_" parent="world">
+    <!-- position robot in the world -->
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:rrbot>
+
+  <!-- create the second robot -->
+  <xacro:rrbot prefix="rrbot2_" parent="world">
+    <!-- position robot in the world -->
+    <origin xyz="3 0 0" rpy="0 0 ${degrees(180)}" />
+  </xacro:rrbot>
+
+</robot>
