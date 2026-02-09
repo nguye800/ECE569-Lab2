@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<robot name="table">
+
+  <!-- define the colors -->
+  <material name="brown">
+    <color rgba="0.54 0.27 0.07 1.0"/>
+</material>
+<material name="light_grey">
+    <color rgba="0.8 0.8 0.8 1.0"/>
+</material>
+  
+  <!-- create link fixed to the "world" -->
+  <link name="world" />
+
+  <!--Joint 1 Attached to Ground-->
+  <joint name="leg1" type="fixed">
+    <origin rpy="0 0 0" xyz="0.95 0.45 -0.05" />
+    <parent link="tabletop" />
+    <child link="link1" />
+  </joint>
+
+  <!-- Link1 -->
+  <link name="link1">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.475" />
+      <geometry>
+        <cylinder radius="0.05" length="0.95" />
+      </geometry>
+      <material name="light_grey" />
+    </visual>
+  </link>
+
+  <!--Joint 2 Attached to Ground-->
+  <joint name="leg2" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.95 0.45 -0.05" />
+    <parent link="tabletop" />
+    <child link="link2" />
+  </joint>
+
+  <!-- Link2 -->
+  <link name="link2">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.475" />
+      <geometry>
+        <cylinder radius="0.05" length="0.95" />
+      </geometry>
+      <material name="light_grey" />
+    </visual>
+  </link>
+
+  <!--Joint 3 Attached to Ground-->
+  <joint name="leg3" type="fixed">
+    <origin rpy="0 0 0" xyz="0.95 -0.45 -0.05" />
+    <parent link="tabletop" />
+    <child link="link3" />
+  </joint>
+
+  <!-- Link3 -->
+  <link name="link3">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.475" />
+      <geometry>
+        <cylinder radius="0.05" length="0.95" />
+      </geometry>
+      <material name="light_grey" />
+    </visual>
+  </link>
+
+  <!--Joint 4 Attached to Ground-->
+  <joint name="leg4" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.95 -0.45 -0.05" />
+    <parent link="tabletop" />
+    <child link="link4" />
+  </joint>
+
+  <!-- Link4 -->
+  <link name="link4">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.475" />
+      <geometry>
+        <cylinder radius="0.05" length="0.95" />
+      </geometry>
+      <material name="light_grey" />
+    </visual>
+  </link>
+
+  <!--Top of Table joint-->
+  <joint name="top" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 1" />
+    <parent link="world" />
+    <child link="tabletop" />
+  </joint>
+
+  <!-- Top -->
+  <link name="tabletop">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.025" />
+      <geometry>
+        <box size="2 1 0.05" />
+      </geometry>
+      <material name="brown" />
+    </visual>
+  </link>
+  
+</robot>
